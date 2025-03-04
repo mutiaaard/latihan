@@ -1,4 +1,4 @@
-name: Deploy HTML ke GitHub Pages (Windows)
+name: Cek Kode HTML (Windows)
 
 on:
   push:
@@ -7,15 +7,15 @@ on:
   pull_request:
 
 jobs:
-  deploy:
+  lint:
     runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy ke GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: .
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Periksa HTML
+        run: htmlhint "**/*.html"
